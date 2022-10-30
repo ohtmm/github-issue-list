@@ -18,12 +18,14 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "no-var": "error",
+    "no-var": "warn",
     "no-multiple-empty-lines": "error",
-    "no-console": ["error", { "allow": ["warn", "error", "info"] }],
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
     "eqeqeq": "error", // 일치 연산자 사용 필수
     "dot-notation": "warn", // 가능하다면 dot notation 사용
-    "no-unused-vars": "error", // 사용하지 않는 변수 금지,
-    "quotes": ["error", "double"]
+    "no-unused-vars": "warn", // 사용하지 않는 변수 금지,
+    "quotes": ["error", "double"],
+    "react/prop-types": ["off"],
+    "@typescript-eslint/no-var-requires": 0
   }
 }
