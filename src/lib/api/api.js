@@ -1,24 +1,18 @@
 import axios from "axios";
 
-export const API = (() => {
-  const auth = window.btoa(`ohtmm:${process.env.REACT_APP_GITHUB_API_KEY}`);
-  const instance = axios.create({
-    baseURL: `${process.env.REACT_APP_BASE_URL}?sort=comments`,
-    headers: {
-      Authorization: `basic ${auth}`
-    }
-  });
+const auth = window.btoa(`ohtmm:${process.env.REACT_APP_GITHUB_API_KEY}`);
+export const api = axios.create({
+  baseURL: process.env.REACT_APP_BASE_URL,
+  headers: {
+    Authorization: `basic ${auth}`
+  }
+});
 
-  return {
-    getData: async () => {
-      try {
-        const response = await instance.get("");
-        const issuesData = response.data;
-        return issuesData;
-      } catch (error) {
-        console.error(error);
-        return;
-      }
-    }
-  };
-})();
+export const getIssuePage = async (pageParam = 1, options = {}) => {
+  const response = await api.get(
+    `issues?sort=comments&page=${pageParam}`,
+    options
+  );
+  console.log(response);
+  return response.data;
+};

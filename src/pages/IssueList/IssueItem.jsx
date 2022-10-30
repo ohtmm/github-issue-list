@@ -3,14 +3,15 @@ import { useContext } from "react";
 import styled from "styled-components";
 import React from "react";
 
-export default function IssueItem({ issue }) {
+const IssueItem = React.forwardRef(({ issue, ref }) => {
   const { toggleDetail, setToggleDetail, setSelectedIssue } =
     useContext(IssueContext);
   const handleClick = (issue) => {
     setToggleDetail((prev) => !prev);
     setSelectedIssue(issue);
   };
-  return (
+
+  const body = (
     <ItemContainer>
       {toggleDetail ? <UserAvatar src={`${issue.user.avatar_url}`} /> : null}
       <IssueInfoBox onClick={() => handleClick(issue)}>
@@ -24,7 +25,10 @@ export default function IssueItem({ issue }) {
       <IssueComentBox>코멘트: {issue.comments}</IssueComentBox>
     </ItemContainer>
   );
-}
+
+  const content = ref ? <ul ref={ref}>{body}</ul> : <ul>{body}</ul>;
+  return content;
+});
 
 const ItemContainer = styled.li`
   display: flex;
@@ -77,3 +81,6 @@ const UserAvatar = styled.img`
   padding: 1rem;
   border-radius: 100%;
 `;
+
+IssueItem.displayName = "IssueItem";
+export default IssueItem;
