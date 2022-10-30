@@ -3,17 +3,19 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 
 export default function Header() {
-  const { setToggleDetail } = useContext(IssueContext);
+  const { toggleDetail, setToggleDetail } = useContext(IssueContext);
   return (
     <IssueListHeader>
       Angular / Angular-cli
-      <button
-        onClick={() => {
-          setToggleDetail((prev) => !prev);
-        }}
-      >
-        go to list
-      </button>
+      {toggleDetail ? (
+        <button
+          onClick={() => {
+            setToggleDetail((prev) => !prev);
+          }}
+        >
+          go to list
+        </button>
+      ) : null}
     </IssueListHeader>
   );
 }

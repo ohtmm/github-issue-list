@@ -13,6 +13,5 @@ export const getIssuePage = async (pageParam = 1, options = {}) => {
     `issues?sort=comments&page=${pageParam}`,
     options
   );
-  console.log(response);
   return response.data;
 };

@@ -11,7 +11,7 @@ export default function IssueDetail() {
 
   return (
     <IssueDetailLayOut>
-      <IssueItem idx={selectedIssue.number} issue={selectedIssue} />
+      <IssueItem idx={selectedIssue.number} result={selectedIssue} />
       <MarkDown dangerouslySetInnerHTML={{ __html: htmlText }} />
     </IssueDetailLayOut>
   );

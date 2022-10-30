@@ -3,34 +3,34 @@ import { useContext } from "react";
 import styled from "styled-components";
 import React from "react";
 
-const IssueItem = React.forwardRef(({ issue, ref }) => {
+const IssueItem = React.forwardRef(({ result }, ref) => {
   const { toggleDetail, setToggleDetail, setSelectedIssue } =
     useContext(IssueContext);
-  const handleClick = (issue) => {
+  const handleClick = (result) => {
     setToggleDetail((prev) => !prev);
-    setSelectedIssue(issue);
+    setSelectedIssue(result);
   };
 
   const body = (
     <ItemContainer>
-      {toggleDetail ? <UserAvatar src={`${issue.user.avatar_url}`} /> : null}
-      <IssueInfoBox onClick={() => handleClick(issue)}>
+      {toggleDetail ? <UserAvatar src={`${result.user.avatar_url}`} /> : null}
+      <IssueInfoBox onClick={() => handleClick(result)}>
         <h1>
-          #{issue.number} {issue.title}
+          #{result.number} {result.title}
         </h1>
         <p>
-          작성자: {issue.user.login}, 작성일: {issue.created_at}
+          작성자: {result.user.login}, 작성일: {result.created_at}
         </p>
       </IssueInfoBox>
-      <IssueComentBox>코멘트: {issue.comments}</IssueComentBox>
+      <IssueComentBox>코멘트: {result.comments}</IssueComentBox>
     </ItemContainer>
   );
 
-  const content = ref ? <ul ref={ref}>{body}</ul> : <ul>{body}</ul>;
+  const content = ref ? <div ref={ref}>{body}</div> : <div>{body}</div>;
   return content;
 });
 
-const ItemContainer = styled.li`
+const ItemContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

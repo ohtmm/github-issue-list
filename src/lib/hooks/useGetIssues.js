@@ -4,6 +4,7 @@ import { IssueContext } from "../states/IssueProvider";
 
 const useGetIssues = (pageNum = 1) => {
   const { issues, setIssues } = useContext(IssueContext);
+  const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState({});
@@ -20,6 +21,7 @@ const useGetIssues = (pageNum = 1) => {
 
     getIssuePage(pageNum, { signal })
       .then((data) => {
+        setResults((prev) => [...prev, ...data]);
         setIssues((prev) => [...prev, ...data]);
         setHasNextPage(Boolean(data.length));
         setIsLoading(false);
@@ -33,7 +35,7 @@ const useGetIssues = (pageNum = 1) => {
 
     return () => controller.abort();
   }, [pageNum]);
-  return { isLoading, isError, error, hasNextPage };
+  return { results, isLoading, isError, error, hasNextPage };
 };
 
 export default useGetIssues;

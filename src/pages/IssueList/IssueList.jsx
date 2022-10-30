@@ -1,28 +1,48 @@
 import styled from "styled-components";
 import IssueItem from "./IssueItem";
-import { api } from "@/lib/api/api";
 import { IssueContext } from "@/lib/states/IssueProvider";
-import React, { useContext, useRef, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import useGetIssues from "@/lib/hooks/useGetIssues";
 
 export default function IssueList() {
-  const { issues, setIssues } = useContext(IssueContext);
   const [pageNum, setPageNum] = useState(1);
-  const { isLoading, isError, error, hasNextPage } = useGetIssues(pageNum);
+  const { results, isLoading, isError, error, hasNextPage } =
+    useGetIssues(pageNum);
 
-  const lastIssueRef = useRef();
+  const intObserver = useRef();
+  const lastIssueRef = useCallback(
+    (result) => {
+      if (isLoading) return;
+      if (intObserver.current) intObserver.current.disconnect();
+      intObserver.current = new IntersectionObserver((results) => {
+        if (results[0].isIntersecting && hasNextPage) {
+          console.log("we are here");
+          setPageNum((prev) => prev + 1);
+        }
+      });
+
+      if (result) intObserver.current.observe(result);
+    },
+    [isLoading, hasNextPage]
+  );
+
   if (isError) return <p>Error:{error.message}</p>;
-
-  const content = issues.map((issue, i) => {
-    if (issues.lengt === i + 1) {
-      <IssueItem ref={lastIssueRef} key={issue.number} idx={i} issue={issue} />;
-    }
-    return <IssueItem key={issue.number} idx={i} issue={issue} />;
-  });
 
   return (
     <IssueListLayout>
-      {content}
+      {results.map((result, i) => {
+        if (results.length === i + 1) {
+          return (
+            <IssueItem
+              ref={lastIssueRef}
+              key={result.id}
+              idx={i}
+              result={result}
+            />
+          );
+        }
+        return <IssueItem key={result.id} idx={i} result={result} />;
+      })}
       {isLoading && <p>Loading ... </p>}
     </IssueListLayout>
   );
