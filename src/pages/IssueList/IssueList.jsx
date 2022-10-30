@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import IssueItem from "./IssueItem";
-import { IssueContext } from "@/lib/states/IssueProvider";
-import React, { useCallback, useContext, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import useGetIssues from "@/lib/hooks/useGetIssues";
+import Loader from "@/components/Loader";
+import Ad from "@/components/Ad";
 
 export default function IssueList() {
   const [pageNum, setPageNum] = useState(1);
@@ -16,7 +17,6 @@ export default function IssueList() {
       if (intObserver.current) intObserver.current.disconnect();
       intObserver.current = new IntersectionObserver((results) => {
         if (results[0].isIntersecting && hasNextPage) {
-          console.log("we are here");
           setPageNum((prev) => prev + 1);
         }
       });
@@ -40,10 +40,13 @@ export default function IssueList() {
               result={result}
             />
           );
+        } else if (i === 4) {
+          return <Ad key={result.id} />;
+        } else {
+          return <IssueItem key={result.id} idx={i} result={result} />;
         }
-        return <IssueItem key={result.id} idx={i} result={result} />;
       })}
-      {isLoading && <p>Loading ... </p>}
+      {isLoading && <Loader />}
     </IssueListLayout>
   );
 }

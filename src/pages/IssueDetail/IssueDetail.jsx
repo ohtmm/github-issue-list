@@ -1,5 +1,5 @@
 import { IssueContext } from "@/lib/states/IssueProvider";
-import { htmlDecode, makeHtmlText, parseMarkdown } from "@/lib/utils/remark";
+import { parseMarkdown } from "@/lib/utils/remark";
 import React, { useContext } from "react";
 import styled from "styled-components";
 import IssueItem from "../IssueList/IssueItem";

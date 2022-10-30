@@ -3,7 +3,7 @@ import { getIssuePage } from "../api/api";
 import { IssueContext } from "../states/IssueProvider";
 
 const useGetIssues = (pageNum = 1) => {
-  const { issues, setIssues } = useContext(IssueContext);
+  const { setIssues } = useContext(IssueContext);
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);

@@ -13,7 +13,7 @@ export default function Header() {
             setToggleDetail((prev) => !prev);
           }}
         >
-          go to list
+          Home
         </button>
       ) : null}
     </IssueListHeader>
@@ -26,17 +26,22 @@ const IssueListHeader = styled.header`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 7rem;
+  height: 8rem;
   font-size: 4rem;
-  background-color: lightcoral;
+  color: #fff;
+  font-weight: 800;
+  background-color: #a9adfd;
 
   > button {
     position: absolute;
     right: 2rem;
     font-size: 2rem;
     padding: 1rem 2rem;
+    color: #a9adfd;
+    font-weight: 600;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 0.8rem;
+    background-color: #faefef;
     cursor: pointer;
   }
 `;

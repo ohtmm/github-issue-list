@@ -19,7 +19,7 @@ const IssueItem = React.forwardRef(({ result }, ref) => {
           #{result.number} {result.title}
         </h1>
         <p>
-          작성자: {result.user.login}, 작성일: {result.created_at}
+          작성자: {result.user.login} 작성일: {result.created_at}
         </p>
       </IssueInfoBox>
       <IssueComentBox>코멘트: {result.comments}</IssueComentBox>
@@ -36,7 +36,8 @@ const ItemContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 15rem;
-  border-bottom: 1px solid #000;
+  margin: 0 auto;
+  border-bottom: 1px solid #908989;
   background-color: #fff;
 `;
 
@@ -47,7 +48,6 @@ const IssueInfoBox = styled.div`
   padding: 1rem 1rem 1rem 2rem;
   width: 90%;
   height: 100%;
-  border-right: 1px solid #222;
   background-color: #fff;
   box-sizing: border-box;
   cursor: pointer;
@@ -70,8 +70,9 @@ const IssueComentBox = styled.div`
   justify-content: center;
   width: 20%;
   height: 100%;
-  font-size: 1.5rem;
-  background-color: lightpink;
+  font-weight: 600;
+  font-size: 1.8rem;
+  background-color: #e9e7e7;
 `;
 
 const UserAvatar = styled.img`
