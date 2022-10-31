@@ -7,13 +7,16 @@ const IssueContextProvder = ({ children }) => {
   const [issues, setIssues] = useState([]);
   const [toggleDetail, setToggleDetail] = useState(false);
   const [selectedIssue, setSelectedIssue] = useState(null);
+  const [repo, setRepo] = useState({});
   const value = {
     issues,
     setIssues,
     toggleDetail,
     setToggleDetail,
     selectedIssue,
-    setSelectedIssue
+    setSelectedIssue,
+    repo,
+    setRepo
   };
 
   return (

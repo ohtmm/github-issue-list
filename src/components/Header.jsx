@@ -1,12 +1,15 @@
+import { getRepository } from "@/lib/api/api";
+import useGetRepository from "@/lib/hooks/useGetRepository";
 import { IssueContext } from "@/lib/states/IssueProvider";
 import React, { useContext } from "react";
 import styled from "styled-components";
 
 export default function Header() {
   const { toggleDetail, setToggleDetail } = useContext(IssueContext);
+  const repoInfo = useGetRepository();
   return (
     <IssueListHeader>
-      Angular / Angular-cli
+      {repoInfo.owner} / {repoInfo.repo}
       {toggleDetail ? (
         <button
           onClick={() => {

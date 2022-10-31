@@ -10,6 +10,7 @@ export default function IssueList() {
   const { results, isLoading, isError, error, hasNextPage } =
     useGetIssues(pageNum);
 
+  //TODO: observer 부분 분리
   const intObserver = useRef();
   const lastIssueRef = useCallback(
     (result) => {
